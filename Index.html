@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Portfolio - Louis Guillet</title>
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Poppins", Arial, sans-serif;
+      background-color: #0a1837;
+      color: #e6edf3;
+      overflow-x: hidden;
+    }
+
+    
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #00ffc3, #007bff);
+      width: 0%;
+      z-index: 9999;
+      transition: width 0.25s ease;
+    }
+
+    
+    #particles-js {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      background: radial-gradient(circle at 30% 30%, #0a1837 0%, #05112a 100%);
+    }
+
+    
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(5,17,45,0.85);
+      backdrop-filter: blur(12px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px 0;
+      z-index: 10;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      transition: background 0.4s;
+    }
+    nav.scrolled { background: rgba(5,17,45,0.95); }
+    nav a {
+      color: #e6edf3;
+      text-decoration: none;
+      margin: 0 20px;
+      font-weight: 600;
+      font-size: 1rem;
+      position: relative;
+      transition: transform 0.2s, color 0.3s;
+    }
+    nav a:hover { transform: scale(1.1); color: #00ffc3; }
+    nav a::after {
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background-color: #00ffc3;
+      transition: 0.3s;
+    }
+    nav a:hover::after { width: 100%; }
+
+    
+    section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 120px 20px;
+      text-align: center;
+      background: rgba(10,24,55,0.85);
+      transition: background 1s ease;
+      border-radius: 10px;
+      margin: 30px auto;
+      width: 95%;
+      max-width: 1200px;
+    }
+    h1, h2 {
+      color: #fff;
+      margin-bottom: 20px;
+      transition: transform 0.3s, color 0.3s;
+    }
+    h1:hover, h2:hover { color: #00ffc3; transform: scale(1.03); }
+
+  
+    #accueil img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #00ffc3;
+      margin-bottom: 20px;
+    }
+    #accueil p {
+      max-width: 600px;
+      line-height: 1.6;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 20px;
+    }
+    .skill {
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 20px;
+      width: 150px;
+      height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+    .skill:hover {
+      transform: translateY(-5px) scale(1.05);
+      background: rgba(0,255,195,0.9);
+      color: #0a1837;
+    }
+    .skill i { font-size: 2.8rem; margin-bottom: 10px; }
+
+    
+    .projects-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 40px; }
+    .flip-card { width: 320px; height: 240px; perspective: 1000px; }
+    .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.8s; transform-style: preserve-3d; }
+    .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+    .flip-card-front, .flip-card-back {
+      position: absolute; width: 100%; height: 100%;
+      border-radius: 10px;
+      backface-visibility: hidden;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      padding: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
+    .flip-card-front { background: rgba(255,255,255,0.1); color: #e6edf3; }
+    .flip-card-back { background: #00ffc3; color: #0a1837; transform: rotateY(180deg); }
+
+    
+    .passions-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 40px; }
+    .passion {
+      width: 320px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+    .passion:hover { transform: scale(1.05); }
+    .passion img { width: 100%; height: 180px; object-fit: cover; }
+    .passion h3 { color: #00ffc3; margin: 15px 0 5px; }
+
+    
+    form { display: flex; flex-direction: column; width: 80%; max-width: 450px; gap: 15px; }
+    input, textarea {
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      font-size: 1rem;
+    }
+    button {
+      background: #00ffc3;
+      border: none;
+      padding: 14px;
+      color: #0a1837;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+    button:hover { background: #00d9a0; }
+
+    footer {
+      padding: 20px;
+      text-align: center;
+      font-size: 0.9em;
+      color: #bbb;
+      background: rgba(5,17,45,0.95);
+    }
+
+    
+    .shooting-star {
+      position: absolute;
+      width: 4px; height: 4px;
+      background: white;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: shooting 0.8s linear forwards;
+    }
+    @keyframes shooting {
+      0% { transform: translate(0,0) scale(1); opacity: 1; }
+      100% { transform: translate(400px,-300px) scale(0.2); opacity: 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="progress-bar"></div>
+  <div id="particles-js"></div>
+
+  
+  <nav id="navbar">
+    <a href="#accueil">Accueil</a>
+    <a href="#skills">Compétences</a>
+    <a href="#projets">Projets</a>
+    <a href="#passions">Passions</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  
+  <section id="accueil" data-aos="fade-up">
+    <img src="file:///home/louis/Downloads/photo%20promo/Epitech_Louis_GUILLET_PreMSc_Promo2028_Rennes.JPG" alt="Louis Guillet">
+    <h1>Salut, moi c’est <span style="color:#00ffc3;">Louis Guillet</span></h1>
+    <p>Étudiant à Epitech, passionné par le développement web et les nouvelles technologies.</p>
+    <p>📧 <a href="mailto:louis.guillet@mail.com" style="color:#00ffc3;">louis.guillet@Epitech.eu</a></p>
+  </section>
+
+  
+  <section id="skills" data-aos="fade-right">
+    <h2>Compétences Techniques</h2>
+    <p>Voici les technologies que je sais utiliser :</p>
+    <div class="skills-list">
+      <div class="skill"><i class="devicon-html5-plain"></i><p>HTML<br></p></div>
+      <div class="skill"><i class="devicon-css3-plain"></i><p>CSS<br></p></div>
+      <div class="skill"><i class="devicon-javascript-plain"></i><p>JS<br></p></div>
+      <div class="skill"><i class="devicon-typescript-plain"></i><p>TS<br></p></div>
+      <div class="skill"><i class="devicon-vuejs-plain"></i><p>Vue.js<br></p></div>
+      <div class="skill"><i class="devicon-php-plain"></i><p>PHP<br></p></div>
+      <div class="skill"><i class="devicon-python-plain"></i><p>Python<br></p></div>
+      <div class="skill"><i class="devicon-java-plain"></i><p>Java<br></p></div>
+    </div>
+  </section>
+
+  
+  <section id="projets" data-aos="fade-up">
+    <h2>Mes Réalisations</h2>
+    <div class="projects-container">
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <h3>Jeu du Pendu 🐍</h3>
+          </div>
+          <div class="flip-card-back">
+            <h3>Jeu du Pendu</h3>
+            <p>Projet d’apprentissage en Python, visant à manipuler les boucles, conditions et saisies utilisateur.</p>
+            <a href="#">Voir sur GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <h3>JobBoard 💼</h3>
+          </div>
+          <div class="flip-card-back">
+            <h3>JobBoard</h3>
+            <p>Site web dynamique d’offres d’emploi, avec gestion des utilisateurs et filtrage interactif.<br>HTML | CSS | PHP | JS</p>
+            <a href="#">Voir le projet</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section id="passions" data-aos="fade-right">
+    <h2>Passions</h2>
+    <div class="passions-container">
+      <div class="passion" id="philosophie">
+        <img src="https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=800&q=80" alt="Philosophie">
+        <h3>Philosophie PréSocratique</h3>
+        <p>"L'homme n'est pas affecté par les événements mais par le regard qu'il porte sur eux." - Épictète.</p>
+      </div>
+      <div class="passion" id="physique-quantique">
+        <img src="https://imgs.search.brave.com/o837wLCIW7RweXpd3zP1FfXFTlcKXhccCYPJeTksVHk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/MjBtbi5mci9GQ2ZD/WXBEelNXMmxjTTZL/bzdzSUxDay8xNDQ0/eDkyMF9jb25jZXB0/dWFsLWlsbHVzdHJh/dGlvbi1vZi1xdWFu/dHVtLWZsdWN0dWF0/aW9ucy1pbi1xdWFu/dHVtLXBoeXNpY3Mt/cXVhbnR1bS1mbHVj/dHVhdGlvbnMtYXJl/LWRlc2NyaWJlZC1h/cy10ZW1wb3Jhcnkt/YXBwZWFyYW5jZXMt/b2YtZW5lcmdldGlj/LXBhcnRpY2xlcy10/aHJvdWdoLXJhbmRv/bS1jaGFuZ2VzLWlu/LWVuZXJneS13aXRo/aW4tYS1wb2ludC1p/bi1zcGFjZS10aGVz/ZS1wYXJ0aWNsZXMt/YXJlLWNvbnNpZGVy/ZWQtdmlydHVhbC1h/cy10aGV5LWNvbWUt/aW50by1leGlzdGVu/Y2UtZm9yLWEtdmVy/eS1icmllZi1wZXJp/b2Qtb2YtdGltZS1x/dWFudHVtLWZsdWN0/dWF0aW9ucy1mb2xs/b3ctaGVpc2VuYmVy/Zy1zLXVuY2VydGFp/bnR5LXByaW5jaXBs/ZS1hbmQtYWxzby1z/dXBwb3J0LW9ic2Vy/dmF0aW9ucy1zdWNo/LWFzLXRoZS1jYXNp/bWlyLWVmZmVjdC1w/aG90by1ieS12aWN0/b3ItZGUtc2Nod2Fu/YmVyZy1zY2llbmNl/LXBoby12c2Mtc2Np/ZW5jZS1waG90by1s/aWJyYXJ5LXZpYS1h/ZnA" alt="Physique Quantique">
+        <h3>Physique Quantique</h3>
+        <p>« ceux qui ne sont pas choqués lorsqu'ils découvrent la théorie quantique ne peuvent pas l'avoir comprise » - Niels Bohr.</p>
+      </div>
+    </div>
+  </section>
+
+  
+  <section id="contact" data-aos="fade-left">
+    <h2>Me Contacter</h2>
+    <form action="https://formspree.io/f/xeoqpkzp" method="POST">
+      <input type="text" name="name" placeholder="Votre nom" required>
+      <input type="email" name="email" placeholder="Votre email" required>
+      <textarea name="message" rows="5" placeholder="Votre message..." required></textarea>
+      <button type="submit">Envoyer</button>
+    </form>
+  </section>
+
+  <footer>© 2025 Louis Guillet - Portfolio </footer>
+
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+  <script>
+    AOS.init();
+    window.addEventListener("scroll", () => {
+      document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 50);
+      const scrollTop = window.scrollY;
+      const docHeight = document.body.scrollHeight - window.innerHeight;
+      const percent = (scrollTop / docHeight) * 100;
+      document.getElementById("progress-bar").style.width = percent + "%";
+    });
+
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 60 },
+        "size": { "value": 3 },
+        "color": { "value": "#00ffc3" },
+        "move": { "enable": true, "speed": 1 },
+        "line_linked": { "enable": true, "distance": 120, "color": "#00ffc3", "opacity": 0.3, "width": 1 }
+      },
+      "interactivity": { "events": { "onhover": { "enable": true, "mode": "repulse" } } }
+    });
+
+    const pq = document.getElementById("physique-quantique");
+    pq.addEventListener("mouseenter", () => spawnStar(pq));
+    pq.addEventListener("click", () => spawnStar(pq));
+    function spawnStar(target){
+      const star = document.createElement("div");
+      star.className = "shooting-star";
+      star.style.left = Math.random()*50 + "px";
+      star.style.top = "150px";
+      target.appendChild(star);
+      setTimeout(() => star.remove(), 1000);
+    }
+  </script>
+</body>
+</html>
